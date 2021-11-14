@@ -2,15 +2,16 @@
 #include <stdlib.h>
 #include <time.h>
 #include <SDL.h>
+#include <Windows.h>
 
 
-#define SIZE_X_MATRIX   100
-#define SIZE_Y_MATRIX   100
-#define SIZE_X_WINDOW   500
-#define SIZE_Y_WINDOW   500
+#define SIZE_X_MATRIX   200
+#define SIZE_Y_MATRIX   200
+#define SIZE_X_WINDOW   600
+#define SIZE_Y_WINDOW   600
 #define SIZE_X_CELL     SIZE_X_WINDOW / SIZE_X_MATRIX
 #define SIZE_Y_CELL     SIZE_Y_WINDOW / SIZE_Y_MATRIX
-#define TIME_REFRESH    10
+#define TIME_REFRESH    0
 #define STEP            30
 
 
@@ -37,19 +38,12 @@ int count_cells_around(int** matrix, int x, int y)
 }
 
 
-void switch_values(int* a, int* b)
+void swap_ptr(int* ptr1, int* ptr2)
 {
-    *a = *a + *b;
-    *b = *a - *b;
-    *a = *a - *b;
-}
+    int ptr3 = *ptr1;
 
-
-void copy_matrix(int** matrix1, int** matrix2)
-{
-    for (int y = 0; y < SIZE_Y_MATRIX; y++)
-        for (int x = 0; x < SIZE_X_MATRIX; x++)
-            switch_values(&matrix1[y][x], &matrix2[y][x]);
+    *ptr1 = *ptr2;
+    *ptr2 = ptr3;
 }
 
 
@@ -186,6 +180,7 @@ int main(int argc, char* argv[])
     // Jeu
 
     SDL_Event events;
+
     struct Color colors[STEP];
     generate_colors(colors);
 
@@ -208,7 +203,7 @@ int main(int argc, char* argv[])
                     new_matrix[y][x] = old_matrix[y][x] - 1;
             }
 
-        copy_matrix(old_matrix, new_matrix);
+        swap_ptr(&old_matrix, &new_matrix);
         fill_matrix(new_matrix, 0);
         draw_matrix(renderer, old_matrix, colors);
         SDL_Delay(TIME_REFRESH);
