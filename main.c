@@ -150,7 +150,7 @@ int main(int argc, char* argv[])
 
     // Initialisation de la fenêtre
 
-    SDL_Window* window = SDL_CreateWindow("Jeu de la vie v6", SIZE_X_WINDOW, SDL_WINDOWPOS_CENTERED, SIZE_X_WINDOW, SIZE_Y_WINDOW, SDL_WINDOW_SHOWN);
+    SDL_Window* window = SDL_CreateWindow("Jeu de la vie v6", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SIZE_X_WINDOW, SIZE_Y_WINDOW, SDL_WINDOW_SHOWN);
 
     if (window == NULL)
     {
